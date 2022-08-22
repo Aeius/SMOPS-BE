@@ -6,6 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false # 하나가 실패해도 다른 job은 진행되도록
       matrix: # 매트릭스 병렬로 파이썬의 각각 버젼에 대해서 테스트를 실행하겠다.
         python-version: ["3.8", "3.9", "3.10"]
 
