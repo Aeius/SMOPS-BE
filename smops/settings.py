@@ -11,18 +11,17 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # =========== Setting Key by my_settings.py ===========
-import my_settings
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = my_settings.SECRET_KEY
+SECRET_KEY = os.environ.get('SECRET_KEY')
 # =====================================================
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -90,14 +89,12 @@ WSGI_APPLICATION = "smops.wsgi.application"
 # =========== Setting Key by my_settings.py ===========
 
 # MYSQL 안쓸꺼면 아래 풀어서 쓰면 됩니다.
-DATABASES = my_settings.DATABASE
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}"""
+}
 # =====================================================
 
 # Password validation
