@@ -4,5 +4,7 @@ migrations/
 db.sqlite3
 my_settings.py
 venv/
-.env
-.env.postgres
+.env.dev
+.env.prod
+.env.postgres.dev
+.env.postgres.prod

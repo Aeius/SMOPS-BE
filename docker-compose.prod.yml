@@ -1,0 +1,48 @@
+version: "3.8"
+# ㄴ 사용하는 docker-compose 버젼
+
+services: # 추가할 서비스들 web, db, nginx
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    ports:
+      - 80:80
+    depends_on:
+      - web
+  web: 
+    build: .
+    # ㄴ . 을 써서 현재폴더에 있는 도커파일로 빌드를 하겠다.
+    # command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn SMOPS_PARC.wsgi:application --bind 0.0.0.0:8000
+    # ㄴ 사용하는 커맨드
+    ports: # 포트 맵핑
+      - 8000:8000
+    working_dir: /usr/src/app/
+    volumes: # 바인딩 볼륨
+      - ./:/usr/src/app/
+     # ㄴ 현재 폴더(.)를 /usr/src/app/ 에 바인딩 
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
+      # ㄴ 현재 폴더(.)의 .env 파일로 환경변수 설정
+    depends_on:
+      - db
+  db:
+    image: postgres:14.4-alpine
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+    env_file:
+      - ./.env.postgres.prod
+    ports:
+      - "5432:5432"
+
+
+volumes:
+  postgres_db:
+  static_volume:
+  media_volume:

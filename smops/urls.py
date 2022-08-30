@@ -18,6 +18,9 @@ from django.urls import path, include
 
 from art.views import ProductsByCategoryView, ProductsByFilteringView, ProductsByArtistSearchingingView, ProductDetailsView, ProductDetailsBuyView, ArticleView
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('mygallery/', include("mygallery.urls")),
@@ -36,5 +39,8 @@ urlpatterns = [
     path("product/detail/buy/log/", ProductDetailsBuyView.as_view()),
 
     
-    path("article", ArticleView.as_view(), name='article_view')
-]
+    path("article", ArticleView.as_view(), name='article_view'),
+        
+] 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
