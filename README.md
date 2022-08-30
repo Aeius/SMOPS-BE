@@ -146,3 +146,6 @@ $ python auto_cleancode.py
 - AWS IAM 부여하여 Infra Team 공동 관리
 
 <hr>
+
+## 🛡 Trouble Shooting
+⚡ 
